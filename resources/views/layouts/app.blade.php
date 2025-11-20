@@ -81,7 +81,7 @@
                             <span class="mr-3">📁</span> Kategori
                         </a>
 
-                        <a href="/menu"
+                        <a href="{{ route('admin.menu.index') }}"
                             class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
                        {{ request()->is('menu') ? 'bg-sidebar-active' : '' }}">
                             <span class="mr-3">🍽️</span> Menu
