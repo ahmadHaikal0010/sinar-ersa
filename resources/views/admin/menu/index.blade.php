@@ -36,7 +36,8 @@
                         <td class="py-3">{{ $menu->nama }}</td>
 
                         <td class="py-3">
-                            <img src="{{ asset('images/ketupat.jpeg') }}" class="w-16 h-16 rounded-md object-cover shadow">
+                            <img src="{{ $menu->images->first()?->url ?? asset('images/ketupat.jpeg') }}"
+                                class="w-16 h-16 rounded-md object-cover shadow">
                         </td>
 
                         <td class="py-3">Rp {{ number_format($menu->harga ?? 0, 0, ',', '.') }}</td>

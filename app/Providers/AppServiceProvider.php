@@ -26,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policies(Menu::class, MenuPolicy::class);
         Gate::policies(Transaction::class, TransactionPolicy::class);
+        Gate::policies(\App\Models\MenuImage::class, \App\Policies\MenuImagePolicy::class);
     }
 }
