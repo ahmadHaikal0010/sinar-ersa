@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,6 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/menu', MenuController::class);
+    Route::resource('/image', ImageController::class);
     Route::resource('/transaction', TransactionController::class);
 });

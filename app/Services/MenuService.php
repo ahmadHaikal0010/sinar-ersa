@@ -8,7 +8,7 @@ class MenuService
 {
     public function getAllMenu()
     {
-        return Menu::latest()->paginate(10);
+        return Menu::with('images')->latest()->paginate(10);
     }
 
     public function store(array $data)
