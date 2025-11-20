@@ -1,36 +1,92 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <style>
+        .bg-header { background-color: #e3c986; }
+        .bg-sidebar { background-color: #dae6a6; }
+        .bg-sidebar-box { background-color: #ece8c7; }
+        .bg-sidebar-active { background-color: #b98b58; color:white !important; }
+        .bg-stat-card { background-color: #dff1a6; }
+        .bg-action-btn { background-color: #b98b58; }
+        .bg-logout-btn { background-color: #e58f34; }
+        .rounded-xl-custom { border-radius: 1.7rem; }
+    </style>
+</head>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+<body class="bg-[#f5e7e7]">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+<div class="min-h-screen flex flex-col">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <!-- HEADER -->
+    <div class="w-full bg-header h-20 flex items-center justify-between px-6 shadow-md">
+        <div class="flex items-center">
+            <img src="{{ asset('images/logo.png') }}" class="w-20 h-20 mr-3" alt="Logo">
+            <h1 class="font-semibold text-gray-800 text-lg">Hallo Admin !</h1>
         </div>
-    </body>
+
+        <!-- Search -->
+        <div class="relative">
+            <input type="text" class="border px-4 py-2 pl-10 w-64 rounded-full shadow">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
+        </div>
+    </div>
+
+    <div class="flex flex-1">
+
+        <!-- SIDEBAR -->
+        <aside class="w-60 bg-sidebar p-6 flex flex-col">
+
+            <div class="bg-sidebar-box rounded-xl-custom p-5 shadow flex-grow">
+                <nav class="space-y-3 text-sm">
+
+                    <a href="/dashboard"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->is('dashboard') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">🏠</span> Dashboard
+                    </a>
+
+                    <a href="/kategori"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->is('kategori') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">📁</span> Kategori
+                    </a>
+
+                    <a href="/menu"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->is('menu') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">🍽️</span> Menu
+                    </a>
+
+                    <a href="/transaksi"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->is('transaksi') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">💳</span> Transaksi
+                    </a>
+
+                </nav>
+            </div>
+
+            <div class="mt-6">
+                <a href="#" class="flex items-center justify-center p-3 text-white bg-logout-btn rounded-full">
+                    ⬅️ Logout
+                </a>
+            </div>
+
+        </aside>
+
+        <!-- KONTEN HALAMAN -->
+        <main class="flex-1 p-10">
+            @yield('content')
+        </main>
+
+    </div>
+
+</div>
+
+</body>
 </html>
