@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MenuImage extends Model
 {
-    //
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }
