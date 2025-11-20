@@ -8,9 +8,28 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman utama (welcome)
+
+// Landing Page
 Route::get('/', function () {
-    return view('welcome');
+    return view('public.landing');
 });
+
+// Halaman publik
+Route::get('/menu', function () {
+    return view('public.menu');
+});
+
+Route::get('/tentang', function () {
+    return view('public.tentang');
+});
+
+Route::get('/kontak', function () {
+    return view('public.kontak');
+});
+Route::view('/menu/oleh-oleh', 'menu-oleh-oleh');
+
+// Menu Sarapan
+Route::view('/menu/sarapan', 'menu-sarapan');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
