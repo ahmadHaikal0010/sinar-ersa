@@ -87,7 +87,7 @@
                             <span class="mr-3">🍽️</span> Menu
                         </a>
 
-                        <a href="/transaksi"
+                        <a href="{{ route('admin.transaction.index') }}"
                             class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
                        {{ request()->is('transaksi') ? 'bg-sidebar-active' : '' }}">
                             <span class="mr-3">💳</span> Transaksi
