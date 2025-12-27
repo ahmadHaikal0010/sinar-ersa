@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('menu_images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('menu_id')->constrained(
+                table: 'menus',
+                indexName: 'fk_menu_images_menu_id',
+            )->onDelete('cascade')->onUpdate('cascade');
             $table->string('url');
             $table->timestamps();
         });
