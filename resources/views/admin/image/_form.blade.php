@@ -16,9 +16,8 @@
 
 {{-- Menu association --}}
 <div class="mb-4">
-    <label class="block font-medium text-gray-700">Menu (opsional)</label>
+    <label class="block font-medium text-gray-700">Menu</label>
     <select name="menu_id" class="w-full mt-1 p-2 rounded-md border border-gray-300">
-        <option value="">Tidak ada</option>
         @foreach ($menus as $id => $name)
             <option value="{{ $id }}" {{ old('menu_id', $image->menu_id ?? '') == $id ? 'selected' : '' }}>
                 {{ $name }}</option>
