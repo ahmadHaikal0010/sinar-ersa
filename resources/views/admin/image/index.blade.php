@@ -1,53 +1,120 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold text-gray-700">Kelola Image</h2>
-
-        <a href="{{ route('admin.image.create') }}">
-            <button class="px-4 py-2 bg-[#b98b58] text-white rounded-lg shadow hover:opacity-90">
-                + Tambah Image
-            </button>
-        </a>
+@if (session('success'))
+    <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
+        {{ session('success') }}
     </div>
+@endif
 
-    <div class="bg-[#e6f0a6] p-6 rounded-2xl shadow-md">
+<!-- Header -->
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-semibold text-gray-700">Kelola Image</h2>
 
-        <table class="w-full text-left">
-            <thead>
-                <tr class="text-gray-700 font-semibold">
-                    <th class="pb-3">Gambar</th>
-                    <th class="pb-3">Menu</th>
-                    <th class="pb-3">Aksi</th>
-                </tr>
-            </thead>
+    <a href="{{ route('admin.image.create') }}"
+       class="px-4 py-2 bg-[#b98b58] text-white rounded-lg shadow hover:opacity-90">
+        + Tambah Image
+    </a>
+</div>
 
-            <tbody>
-                @foreach ($images as $image)
-                    <tr class="border-t border-gray-300">
-                        <td class="py-3"><img src="{{ $image->url }}" class="w-24 h-16 object-cover rounded-md"></td>
-                        <td class="py-3">{{ $image->menu?->nama ?? '-' }}</td>
-                        <td class="py-3 flex gap-2">
-                            <a href="{{ route('admin.image.edit', $image) }}">
-                                <button
-                                    class="px-3 py-1 rounded-md bg-[#E6A23C] text-white text-sm hover:opacity-80 transition">Edit</button>
+<!-- Table -->
+<div class="bg-[#e6f0a6] p-6 rounded-2xl shadow-md overflow-x-auto">
+
+    <table class="w-full text-left">
+        <thead>
+            <tr class="text-gray-700 font-semibold border-b border-gray-400">
+                <th class="pb-3">Gambar</th>
+                <th class="pb-3">Menu</th>
+                <th class="pb-3 text-center">Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @forelse ($images as $image)
+                <tr class="border-b border-gray-300 hover:bg-[#f6f1c1]">
+
+                    <!-- GAMBAR -->
+                    <td class="py-3">
+                        <img src="{{ $image->url }}"
+                             class="w-24 h-16 object-cover rounded-md shadow">
+                    </td>
+
+                    <!-- MENU -->
+                    <td class="py-3">
+                        {{ $image->menu?->nama ?? '-' }}
+                    </td>
+
+                    <!-- AKSI -->
+                    <td class="py-3">
+                        <div class="flex justify-center gap-3">
+
+                            <!-- DETAIL -->
+                            <a href="{{ route('admin.image.show', $image) }}"
+                               class="p-2 bg-blue-500 text-white rounded-full hover:opacity-80"
+                               title="Detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                     viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M2.458 12C3.732 7.943 7.523 5 12 5
+                                             c4.478 0 8.268 2.943 9.542 7
+                                             -1.274 4.057-5.064 7-9.542 7
+                                             -4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
                             </a>
-                            <form action="{{ route('admin.image.destroy', $image) }}" method="POST"
-                                onsubmit="return confirm('Hapus image ini?')">
-                                @csrf @method('DELETE')
-                                <button
-                                    class="px-3 py-1 rounded-md bg-[#D9534F] text-white text-sm hover:opacity-80 transition">Hapus</button>
+
+                            <!-- EDIT -->
+                            <a href="{{ route('admin.image.edit', $image) }}"
+                               class="p-2 bg-yellow-500 text-white rounded-full hover:opacity-80"
+                               title="Edit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                     viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M11 5h2M12 4v16m8-8H4" />
+                                </svg>
+                            </a>
+
+                            <!-- HAPUS -->
+                            <form action="{{ route('admin.image.destroy', $image) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('Yakin hapus image ini?')">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit"
+                                    class="p-2 bg-red-500 text-white rounded-full hover:opacity-80"
+                                    title="Hapus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862
+                                                 a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6
+                                                 M9 7h6m2 0H7m3-3h4a1 1 0 011 1v1H9V5a1 1 0 011-1z" />
+                                    </svg>
+                                </button>
                             </form>
-                        </td>
-                    </tr>
-                @endforeach
 
-            </tbody>
-        </table>
+                        </div>
+                    </td>
 
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3" class="text-center py-6 text-gray-500">
+                        Data image belum tersedia
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="mt-6">
+        {{ $images->links() }}
     </div>
+
+</div>
+
 @endsection

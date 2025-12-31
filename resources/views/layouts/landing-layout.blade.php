@@ -59,6 +59,7 @@
                         Login
                     </a>
                 @endauth
+
             </div>
 
         </div>

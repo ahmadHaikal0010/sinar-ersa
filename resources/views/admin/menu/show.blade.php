@@ -4,9 +4,9 @@
 
 <!-- Header -->
 <div class="flex items-center justify-between mb-6">
-    <h2 class="text-xl font-semibold text-gray-700">Detail Transaksi</h2>
+    <h2 class="text-xl font-semibold text-gray-700">Detail Menu</h2>
 
-    <a href="{{ route('admin.transaction.index') }}"
+    <a href="{{ route('admin.menu.index') }}"
        class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:opacity-80">
         ← Kembali
     </a>
@@ -17,33 +17,33 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- Jumlah -->
+        <!-- Nama Menu -->
         <div>
             <label class="block text-sm font-semibold text-gray-600 mb-1">
-                Jumlah
+                Nama Menu
             </label>
             <div class="bg-white p-3 rounded-lg shadow">
-                {{ $transaction->jumlah }}
+                {{ $menu->nama }}
             </div>
         </div>
 
-        <!-- Metode -->
+        <!-- Kategori -->
         <div>
             <label class="block text-sm font-semibold text-gray-600 mb-1">
-                Metode Transaksi
+                Kategori
             </label>
             <div class="bg-white p-3 rounded-lg shadow">
-                {{ ucfirst($transaction->metode_transaksi) }}
+                {{ $menu->kategori }}
             </div>
         </div>
 
-        <!-- Deskripsi -->
-        <div class="md:col-span-2">
+        <!-- Harga -->
+        <div>
             <label class="block text-sm font-semibold text-gray-600 mb-1">
-                Deskripsi
+                Harga
             </label>
             <div class="bg-white p-3 rounded-lg shadow">
-                {{ $transaction->deskripsi }}
+                Rp {{ number_format($menu->harga ?? 0, 0, ',', '.') }}
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                 Tanggal Dibuat
             </label>
             <div class="bg-white p-3 rounded-lg shadow">
-                {{ $transaction->created_at->format('d M Y, H:i') }}
+                {{ $menu->created_at->format('d M Y, H:i') }}
             </div>
         </div>
 
@@ -63,14 +63,14 @@
     <div class="flex gap-3 mt-8">
 
         <!-- Edit -->
-        <a href="{{ route('admin.transaction.edit', $transaction) }}"
+        <a href="{{ route('admin.menu.edit', $menu) }}"
            class="px-4 py-2 bg-[#E6A23C] text-white rounded-lg hover:opacity-80">
             ✏️ Edit
         </a>
 
         <!-- Delete -->
-        <form action="{{ route('admin.transaction.destroy', $transaction) }}" method="POST"
-              onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+        <form action="{{ route('admin.menu.destroy', $menu) }}" method="POST"
+              onsubmit="return confirm('Yakin ingin menghapus menu ini?')">
             @csrf
             @method('DELETE')
 

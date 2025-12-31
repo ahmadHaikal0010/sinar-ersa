@@ -94,15 +94,26 @@
                         <p class="text-gray-600 mb-3">Rp {{ $menu->harga }}</p>
 
                         <div class="flex justify-center gap-4 mt-3">
-                            <button
-                                class="px-4 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                                Lihat Detail
-                            </button>
+                        <a href="{{ route('publik.menu.show', $menu->id) }}"
+                        class="px-4 py-2 border border-gray-400 text-gray-700 rounded-lg">
+                            Lihat Detail
+                        </a>
 
-                            <button class="px-4 py-2 bg-[#D9A84E] text-white rounded-lg hover:bg-[#c2903e] transition">
-                                Beli
-                            </button>
-                        </div>
+                        <a
+                            href="https://wa.me/6283181441459?text={{ urlencode(
+                                'Halo Admin Dapur Mami Ersa 👋' . "\n\n" .
+                                'Saya ingin memesan:' . "\n" .
+                                '🍽 Menu : ' . $menu->nama . "\n" .
+                                '💰 Harga : Rp ' . number_format($menu->harga, 0, ',', '.') . "\n\n" .
+                                'Terima kasih 🙏'
+                            ) }}"
+                            target="_blank"
+                            class="px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-green-600 transition"
+                        >
+                            💬 Pesan via WhatsApp
+                        </a>
+                    </div>
+
 
                     </div>
                 @endforeach

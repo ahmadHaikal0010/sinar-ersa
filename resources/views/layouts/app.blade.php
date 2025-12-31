@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+    {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -45,80 +47,87 @@
 
 <body class="bg-[#f5e7e7]">
 
-    <div class="min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col">
 
-        <!-- HEADER -->
-        <div class="w-full bg-header h-20 flex items-center justify-between px-6 shadow-md">
-            <div class="flex items-center">
-                <img src="{{ asset('images/logo.png') }}" class="w-20 h-20 mr-3" alt="Logo">
-                <h1 class="font-semibold text-gray-800 text-lg">Hallo Admin !</h1>
-            </div>
-
-            <!-- Search -->
-            <div class="relative">
-                <input type="text" class="border px-4 py-2 pl-10 w-64 rounded-full shadow">
-                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
-            </div>
+    <!-- HEADER -->
+    <header class="w-full bg-header h-20 flex items-center justify-between px-6 shadow-md">
+        <div class="flex items-center">
+            <img src="{{ asset('images/logo.png') }}" class="w-16 h-16 mr-3" alt="Logo">
+            <h1 class="font-semibold text-gray-800 text-lg">
+                Hallo Admin !
+            </h1>
         </div>
 
-        <div class="flex flex-1">
+        <!-- Search -->
+        <div class="relative">
+            <input type="text"
+                class="border px-4 py-2 pl-10 w-64 rounded-full shadow focus:outline-none"
+                placeholder="Cari...">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
+        </div>
+    </header>
 
-            <!-- SIDEBAR -->
-            <aside class="w-60 bg-sidebar p-6 flex flex-col">
+    <div class="flex flex-1">
 
-                <div class="bg-sidebar-box rounded-xl-custom p-5 shadow flex-grow">
-                    <nav class="space-y-3 text-sm">
+        <!-- SIDEBAR -->
+        <aside class="w-60 bg-sidebar p-6 flex flex-col">
 
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
-                       {{ request()->is('dashboard') ? 'bg-sidebar-active' : '' }}">
-                            <span class="mr-3">🏠</span> Dashboard
-                        </a>
+            <div class="bg-sidebar-box rounded-xl-custom p-5 shadow flex-grow">
+                <nav class="space-y-3 text-sm">
 
-                        <a href="{{ route('admin.menu.index') }}"
-                            class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
-                       {{ request()->is('menu') ? 'bg-sidebar-active' : '' }}">
-                            <span class="mr-3">🍽️</span> Menu
-                        </a>
+                    {{-- Dashboard --}}
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->routeIs('admin.dashboard') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">🏠</span> Dashboard
+                    </a>
 
-                        <a href="{{ route('admin.image.index') }}"
-                            class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
-                       {{ request()->is('image') ? 'bg-sidebar-active' : '' }}">
-                            <span class="mr-3">🖼️</span> Image
-                        </a>
+                    {{-- Menu --}}
+                    <a href="{{ route('admin.menu.index') }}"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->routeIs('admin.menu.*') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">🍽️</span> Menu
+                    </a>
 
-                        <a href="{{ route('admin.transaction.index') }}"
-                            class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
-                       {{ request()->is('transaksi') ? 'bg-sidebar-active' : '' }}">
-                            <span class="mr-3">💳</span> Transaksi
-                        </a>
+                    {{-- Image --}}
+                    <a href="{{ route('admin.image.index') }}"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->routeIs('admin.image.*') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">🖼️</span> Image
+                    </a>
 
-                    </nav>
-                </div>
+                    {{-- Transaksi --}}
+                    <a href="{{ route('admin.transaction.index') }}"
+                       class="flex items-center p-3 rounded-lg hover:bg-[#f3eabe]
+                       {{ request()->routeIs('admin.transaction.*') ? 'bg-sidebar-active' : '' }}">
+                        <span class="mr-3">💳</span> Transaksi
+                    </a>
 
-                <div class="mt-6">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="flex items-center justify-center p-3 text-white bg-logout-btn rounded-full"
-                            type="submit">⬅️ Logout</button>
-                    </form>
-                    {{-- <a href="{{ route('logout') }}"
-                        class="flex items-center justify-center p-3 text-white bg-logout-btn rounded-full">
+                </nav>
+            </div>
+
+            <!-- LOGOUT -->
+            <div class="mt-6">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button
+                        type="submit"
+                        class="w-full flex items-center justify-center p-3 text-white bg-logout-btn rounded-full hover:opacity-90 transition">
                         ⬅️ Logout
-                    </a> --}}
-                </div>
+                    </button>
+                </form>
+            </div>
 
-            </aside>
+        </aside>
 
-            <!-- KONTEN HALAMAN -->
-            <main class="flex-1 p-10">
-                @yield('content')
-            </main>
-
-        </div>
+        <!-- KONTEN -->
+        <main class="flex-1 p-10">
+            @yield('content')
+        </main>
 
     </div>
 
-</body>
+</div>
 
+</body>
 </html>
