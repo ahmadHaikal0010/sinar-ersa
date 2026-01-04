@@ -43,6 +43,7 @@ class ImageController extends Controller
 
     public function show(MenuImage $image)
     {
+        $image->load('menu');
         return view('admin.image.show', compact('image'));
     }
 
