@@ -1,108 +1,150 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="max-w-7xl mx-auto">
+    
+    <!-- Notifikasi Sukses -->
+    @if (session('success'))
+        <div class="mb-6 flex items-center gap-3 p-4 bg-green-50 border border-green-100 text-green-700 rounded-2xl animate-fade-in">
+            <i class="bi bi-check-circle-fill text-xl"></i>
+            <span class="text-sm font-bold">{{ session('success') }}</span>
+        </div>
+    @endif
 
-@if (session('success'))
-    <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+            <nav class="flex mb-2 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                <ol class="inline-flex items-center space-x-2">
+                    <li>Admin</li>
+                    <li><i class="bi bi-chevron-right text-[8px]"></i></li>
+                    <li class="text-[#B98B58]">Kelola Menu</li>
+                </ol>
+            </nav>
+            <h1 class="text-3xl font-black text-[#4A3728]">Daftar Menu Makanan</h1>
+        </div>
+
+        <a href="{{ route('admin.menu.create') }}"
+           class="inline-flex items-center gap-2 px-6 py-3 bg-[#4A3728] text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-gray-200 hover:bg-[#E3C474] transition-all transform hover:-translate-y-1">
+            <i class="bi bi-plus-lg text-lg"></i> Tambah Menu Baru
+        </a>
     </div>
-@endif
 
-<!-- Header -->
-<div class="flex justify-between items-center mb-6">
-    <h2 class="text-xl font-semibold text-gray-700">Kelola Menu</h2>
+    <!-- Table Container -->
+    <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50/50 border-b border-gray-100">
+                        <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Produk</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Harga</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Kategori</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Aksi</th>
+                    </tr>
+                </thead>
 
-    <a href="{{ route('admin.menu.create') }}"
-       class="px-4 py-2 bg-[#b98b58] text-white rounded-lg shadow hover:opacity-90">
-        + Tambah Menu
-    </a>
+                <tbody class="divide-y divide-gray-50">
+                    @foreach ($menus as $menu)
+                        <tr class="hover:bg-[#FFFBF5]/50 transition-colors group">
+                            
+                            <!-- PRODUK (Image + Name) -->
+                            <td class="px-8 py-5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-14 rounded-2xl overflow-hidden shadow-sm border-2 border-white">
+                                        @if($menu->images->isNotEmpty())
+                                            <img src="{{ $menu->images->first()->url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                        @else
+                                            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                                                <i class="bi bi-image text-xl"></i>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-[#4A3728] leading-tight">{{ $menu->nama }}</p>
+                                        
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- HARGA -->
+                            <td class="px-6 py-5">
+                                <span class="font-black text-[#E3C474] text-sm">
+                                    Rp {{ number_format($menu->harga, 0, ',', '.') }}
+                                </span>
+                            </td>
+
+                            <!-- KATEGORI -->
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest 
+                                    {{ $menu->kategori == 'Kuliner' ? 'bg-green-50 text-green-600' : 'bg-[#FFF7F0] text-[#B98B58]' }}">
+                                    {{ $menu->kategori }}
+                                </span>
+                            </td>
+
+                            <!-- AKSI -->
+                            <td class="px-6 py-5">
+                                <div class="flex justify-center items-center gap-2">
+                                    
+                                    <!-- DETAIL -->
+                                    <a href="{{ route('admin.menu.show', $menu) }}"
+                                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400 hover:bg-[#E3C474] hover:text-white transition-all shadow-sm"
+                                       title="Lihat Detail">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+
+                                    <!-- EDIT -->
+                                    <a href="{{ route('admin.menu.edit', $menu) }}"
+                                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400 hover:bg-[#4A3728] hover:text-white transition-all shadow-sm"
+                                       title="Edit Menu">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <!-- HAPUS -->
+                                    <form action="{{ route('admin.menu.destroy', $menu) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus menu {{ $menu->nama }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-red-300 hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                title="Hapus Menu">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Empty State jika menu kosong -->
+        @if($menus->isEmpty())
+            <div class="py-20 text-center">
+                <i class="bi bi-inbox text-5xl text-gray-200"></i>
+                <p class="text-gray-400 mt-4 font-medium">Belum ada menu yang terdaftar.</p>
+            </div>
+        @endif
+    </div>
+
+    <!-- Pagination (Jika ada) -->
+    <div class="mt-8">
+        {{ $menus->links() }}
+    </div>
+
 </div>
 
-<!-- Table -->
-<div class="bg-[#e6f0a6] p-6 rounded-2xl shadow-md overflow-x-auto">
-
-    <table class="w-full text-left">
-        <thead>
-            <tr class="text-gray-700 font-semibold border-b border-gray-400">
-                <th class="pb-3">Nama Menu</th>
-                <th class="pb-3">Harga</th>
-                <th class="pb-3">Kategori</th>
-                <th class="pb-3 text-center">Aksi</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($menus as $menu)
-                <tr class="border-b border-gray-300 hover:bg-[#f6f1c1]">
-
-                    <td class="py-3">{{ $menu->nama }}</td>
-
-                    <!-- ✅ HARGA SUDAH BENAR -->
-                    <td class="py-3 font-semibold text-gray-800">
-                        {{ $menu->harga_rupiah }}
-                    </td>
-
-                    <td class="py-3">{{ $menu->kategori }}</td>
-
-                    <!-- AKSI -->
-                    <td class="py-3">
-                        <div class="flex justify-center gap-3">
-
-                            <!-- DETAIL -->
-                            <a href="{{ route('admin.menu.show', $menu) }}"
-                            class="p-2 bg-blue-500 text-white rounded-full hover:opacity-80"
-                            title="Detail">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5
-                                            c4.478 0 8.268 2.943 9.542 7
-                                            -1.274 4.057-5.064 7-9.542 7
-                                            -4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                            </a>
-
-                            <!-- EDIT -->
-                            <a href="{{ route('admin.menu.edit', $menu) }}"
-                            class="p-2 bg-yellow-500 text-white rounded-full hover:opacity-80"
-                            title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 5h2M12 4v16m8-8H4" />
-                                </svg>
-                            </a>
-
-                            <!-- HAPUS -->
-                            <form action="{{ route('admin.menu.destroy', $menu) }}"
-                                method="POST"
-                                onsubmit="return confirm('Yakin hapus menu ini?')">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit"
-                                    class="p-2 bg-red-500 text-white rounded-full hover:opacity-80"
-                                    title="Hapus">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862
-                                                a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6
-                                                M9 7h6m2 0H7m3-3h4a1 1 0 011 1v1H9V5a1 1 0 011-1z" />
-                                    </svg>
-                                </button>
-                            </form>
-
-                        </div>
-                    </td>
-
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-</div>
-
+<style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+</style>
 @endsection

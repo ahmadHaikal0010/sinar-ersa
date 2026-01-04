@@ -1,65 +1,120 @@
 @php
-    $kategori = ['Kuliner' => 'Kuliner', 'Oleh-oleh' => 'Oleh-oleh'];
+    $kategori = ['Kuliner' => '🍲 Kuliner', 'Oleh-oleh' => '🎁 Oleh-oleh'];
 @endphp
 
-{{-- Nama Menu --}}
-<div class="mb-4">
-    <label class="block font-medium text-gray-700">Nama Menu</label>
-    <input type="text" name="nama"
-        class="w-full mt-1 p-2 rounded-md border border-gray-300 @error('nama') is-invalid @enderror"
-        value="{{ old('nama', $menu->nama ?? '') }}" placeholder="cth: Kerupuk">
-    @error('nama')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+<div class="space-y-8">
+    
+    <!-- GRID: Nama & Kategori -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{-- Nama Menu --}}
+        <div class="space-y-2">
+            <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
+                <i class="bi bi-pencil-square me-2 text-[#E3C474]"></i> Nama Menu
+            </label>
+            <input type="text" name="nama"
+                class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none transition-all @error('nama') border-red-500 @enderror"
+                value="{{ old('nama', $menu->nama ?? '') }}" placeholder="cth: Kerupuk Jengkol">
+            @error('nama')
+                <p class="text-red-500 text-xs font-bold italic mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Kategori --}}
+        <div class="space-y-2">
+            <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
+                <i class="bi bi-tag me-2 text-[#E3C474]"></i> Kategori
+            </label>
+            <div class="relative">
+                <select name="kategori" 
+                    class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none appearance-none transition-all @error('kategori') border-red-500 @enderror">
+                    <option value="" disabled {{ old('kategori', $menu->kategori ?? '') == '' ? 'selected' : '' }}>Pilih Kategori</option>
+                    @foreach ($kategori as $val => $label)
+                        <option value="{{ $val }}" {{ old('kategori', $menu->kategori ?? '') == $val ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+            </div>
+            @error('kategori')
+                <p class="text-red-500 text-xs font-bold italic mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
+
+    <!-- Harga -->
+    <div class="space-y-2">
+        <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
+            <i class="bi bi-cash-stack me-2 text-[#E3C474]"></i> Harga (Rp)
+        </label>
+        <div class="relative">
+            <span class="absolute inset-y-0 left-4 flex items-center font-bold text-gray-400">Rp</span>
+            <input type="number" name="harga"
+                class="w-full bg-gray-50 border border-gray-100 p-4 pl-12 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none transition-all @error('harga') border-red-500 @enderror"
+                value="{{ old('harga', $menu->harga ?? '') }}" placeholder="0">
+        </div>
+        @error('harga')
+            <p class="text-red-500 text-xs font-bold italic mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Deskripsi -->
+    <div class="space-y-2">
+        <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
+            <i class="bi bi-card-text me-2 text-[#E3C474]"></i> Deskripsi Produk
+        </label>
+        <textarea name="deskripsi"
+            class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none transition-all @error('deskripsi') border-red-500 @enderror" 
+            rows="4" placeholder="Ceritakan kelezatan menu ini...">{{ old('deskripsi', $menu->deskripsi ?? '') }}</textarea>
+        @error('deskripsi')
+            <p class="text-red-500 text-xs font-bold italic mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- SEKSI GAMBAR (Optional/Dianjurkan) -->
+    <div class="p-6 bg-[#FFFBF5] rounded-[2rem] border border-[#E3C474]/20 space-y-4">
+        <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
+            <i class="bi bi-image me-2 text-[#E3C474]"></i> Gambar Utama Menu
+        </label>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{-- Upload File --}}
+            <div class="space-y-2">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Upload File</p>
+                <input type="file" name="image" 
+                    class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#E3C474] file:text-white hover:file:bg-[#4A3728] transition-all" />
+            </div>
+            {{-- URL Manual --}}
+            <div class="space-y-2">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Atau Import URL</p>
+                <input type="text" name="url_manual" 
+                    class="w-full bg-white border border-gray-100 p-2 text-sm rounded-xl outline-none focus:ring-1 focus:ring-[#E3C474]" 
+                    placeholder="https://image-link.com/img.jpg">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tombol Aksi -->
+    <div class="flex flex-col sm:flex-row justify-end gap-4 mt-10 pt-6 border-t border-gray-100">
+        <a href="{{ route('admin.menu.index') }}"
+            class="px-8 py-4 bg-white text-gray-400 border border-gray-200 rounded-2xl font-bold text-sm text-center hover:bg-gray-50 transition-all">
+            <i class="bi bi-arrow-left me-2"></i> Kembali
+        </a>
+
+        <button type="submit" 
+            class="px-10 py-4 bg-[#4A3728] text-white rounded-2xl font-bold text-sm shadow-xl shadow-gray-200 hover:bg-[#E3C474] transform hover:-translate-y-1 transition-all duration-300">
+            <i class="bi bi-check-circle me-2"></i> {{ isset($menu) ? 'Update Menu' : 'Simpan Menu' }}
+        </button>
+    </div>
 </div>
 
-{{-- Kategori --}}
-<div class="mb-4">
-    <label class="block font-medium text-gray-700">Kategori</label>
-    <select name="kategori" class="w-full mt-1 p-2 rounded-md border border-gray-300">
-        <option disabled {{ old('kategori', $menu->kategori ?? '') == '' ? 'selected' : '' }}>Pilih Kategori</option>
-        @foreach ($kategori as $val => $label)
-            <option value="{{ $val }}" {{ old('kategori', $menu->kategori ?? '') == $val ? 'selected' : '' }}>
-                {{ $label }}
-            </option>
-        @endforeach
-    </select>
-    @error('kategori')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-{{-- Deskripsi --}}
-<div class="mb-4">
-    <label class="block font-medium text-gray-700">Deskripsi</label>
-    <textarea name="deskripsi"
-        class="w-full mt-1 p-2 rounded-md border border-gray-300 @error('deskripsi') is-invalid @enderror" rows="3">
-        {{ old('deskripsi', $menu->deskripsi ?? '') }}
-    </textarea>
-    @error('deskripsi')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-{{-- Harga --}}
-<div class="mb-4">
-    <label class="block font-medium text-gray-700">Harga</label>
-    <input type="number" name="harga"
-        class="w-full mt-1 p-2 rounded-md border border-gray-300 @error('harga') is-invalid @enderror"
-        value="{{ old('harga', $menu->harga ?? '') }}">
-    @error('harga')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-{{-- Tombol --}}
-<div class="flex justify-end gap-3 mt-6">
-    <a href="{{ route('admin.menu.index') }}"
-        class="px-6 py-2 bg-[#b98b58] text-white rounded-md shadow hover:opacity-90">
-        Kembali
-    </a>
-
-    <button type="submit" class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
-        Simpan
-    </button>
-</div>
+<style>
+    /* Menghilangkan panah pada input number */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
