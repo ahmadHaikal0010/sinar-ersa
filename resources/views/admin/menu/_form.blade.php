@@ -79,21 +79,7 @@
             <i class="bi bi-image me-2 text-[#E3C474]"></i> Gambar Utama Menu
         </label>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {{-- Upload File --}}
-            <div class="space-y-2">
-                <p class="text-[10px] font-bold text-gray-400 uppercase">Upload File</p>
-                <input type="file" name="image" 
-                    class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#E3C474] file:text-white hover:file:bg-[#4A3728] transition-all" />
-            </div>
-            {{-- URL Manual --}}
-            <div class="space-y-2">
-                <p class="text-[10px] font-bold text-gray-400 uppercase">Atau Import URL</p>
-                <input type="text" name="url_manual" 
-                    class="w-full bg-white border border-gray-100 p-2 text-sm rounded-xl outline-none focus:ring-1 focus:ring-[#E3C474]" 
-                    placeholder="https://image-link.com/img.jpg">
-            </div>
-        </div>
+       
     </div>
 
     <!-- Tombol Aksi -->
