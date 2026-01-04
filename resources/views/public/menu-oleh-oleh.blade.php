@@ -50,13 +50,26 @@
                 </p>
 
                 <div class="flex justify-center space-x-3">
-                    <a href="#" class="px-4 py-1 border rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                    <a href="{{ route('publik.menu.show', $menu->id) }}"
+                        class="px-4 py-1 border rounded-lg text-gray-700 hover:bg-gray-100 transition">
                         Lihat Detail
                     </a>
 
-                    <a href="#"
-                        class="px-4 py-1 bg-[#C89560] text-white font-semibold rounded-lg hover:bg-[#b1804e] transition">
-                        Beli
+                    <a href="https://wa.me/6283181441459?text={{ urlencode(
+                        'Halo Admin Dapur Mami Ersa 👋' .
+                            "\n\n" .
+                            'Saya ingin memesan:' .
+                            "\n" .
+                            '🍽 Menu : ' .
+                            $menu->nama .
+                            "\n" .
+                            '💰 Harga : Rp ' .
+                            number_format($menu->harga, 0, ',', '.') .
+                            "\n\n" .
+                            'Terima kasih 🙏',
+                    ) }}"
+                        target="_blank" class="px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-green-600 transition">
+                        💬 Pesan via WhatsApp
                     </a>
                 </div>
 

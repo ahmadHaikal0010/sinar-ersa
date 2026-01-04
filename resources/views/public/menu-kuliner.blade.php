@@ -35,15 +35,30 @@
                 @if ($menu->images->isNotEmpty())
                     <img src="{{ $menu->images->first()->url }}" class="w-40 h-32 mx-auto mb-3 object-cover">
                 @else
-                    <img src="{{ asset('images/bakwan.jpg') }}" class="w-40 h-32 mx-auto mb-3 object-cover">=
+                    <img src="{{ asset('images/bakwan.jpg') }}" class="w-40 h-32 mx-auto mb-3 object-cover">
                 @endif
                 <h4 class="font-bold text-gray-800">{{ $menu->nama }}</h4>
                 <p class="text-gray-600 mb-3">Rp {{ number_format($menu->harga, 0, ',', '.') }}</p>
 
                 <div class="flex justify-center space-x-3">
-                    <a href="#" class="px-4 py-1 border rounded-lg text-gray-700 hover:bg-gray-100">Lihat Detail</a>
-                    <a href="#"
-                        class="px-4 py-1 bg-[#C89560] text-white font-semibold rounded-lg hover:bg-[#b1804e]">Beli</a>
+                    <a href="{{ route('publik.menu.show', $menu->id) }}"
+                        class="px-4 py-1 border rounded-lg text-gray-700 hover:bg-gray-100">Lihat Detail</a>
+                    <a href="https://wa.me/6283181441459?text={{ urlencode(
+                        'Halo Admin Dapur Mami Ersa 👋' .
+                            "\n\n" .
+                            'Saya ingin memesan:' .
+                            "\n" .
+                            '🍽 Menu : ' .
+                            $menu->nama .
+                            "\n" .
+                            '💰 Harga : Rp ' .
+                            number_format($menu->harga, 0, ',', '.') .
+                            "\n\n" .
+                            'Terima kasih 🙏',
+                    ) }}"
+                        target="_blank" class="px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-green-600 transition">
+                        💬 Pesan via WhatsApp
+                    </a>
                 </div>
             </div>
         @endforeach
