@@ -10,7 +10,11 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $menus = Menu::with('images')->latest()->get();
+        $menus = Menu::with('images')
+            ->withCount('transactions')
+            ->orderByDesc('transactions_count')
+            ->limit(6)
+            ->get();
 
         return view('public.landing', compact('menus'));
     }
