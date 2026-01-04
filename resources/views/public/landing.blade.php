@@ -82,89 +82,103 @@
     </div>
 </section>
 
-<!-- KEUNGGULAN SECTION -->
-<section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-3 gap-8">
-            @php
-                $features = [
-                    ['bi-award','Bahan Premium','Hanya menggunakan bahan organik dan segar dari supplier lokal terpercaya.'],
-                    ['bi-heart-pulse','Higienis & Sehat','Proses pembuatan yang bersih dan tanpa bahan pengawet kimia berbahaya.'],
-                    ['bi-stars','Kualitas Terjamin','Setiap pesanan dibuat fresh untuk menjaga cita rasa autentik Nusantara.']
-                ];
-            @endphp
+<!-- SECTION GABUNGAN: KEUNGGULAN & MENU -->
+<section class="max-w-7xl mx-auto px-6 py-20 space-y-24">
 
-            @foreach($features as $item)
-            <div class="group p-10 rounded-[2.5rem] bg-[#FFFBF5] border border-transparent hover:border-[#E3C474]/30 hover:bg-white hover:shadow-2xl transition-all duration-500">
-                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-3xl mb-8 group-hover:bg-[#E3C474] group-hover:text-white transition-all duration-500">
-                    <i class="bi {{ $item[0] }}"></i>
+    <!-- 1. SUB-SECTION: KEUNGGULAN (Static Cards) -->
+    <div class="space-y-12">
+        <div class="text-center">
+            <h3 class="text-xs font-black text-[#B98B58] uppercase tracking-[0.3em] mb-3">Mengapa Memilih Kami</h3>
+            <h2 class="text-3xl md:text-4xl font-black text-[#4A3728]">Keunggulan Dapur Mami Ersa</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card Keunggulan 1 -->
+            <div class="bg-[#FFFBF5] p-8 rounded-[2.5rem] border border-[#E3C474]/20 text-center space-y-4">
+                <div class="w-16 h-16 bg-[#4A3728] text-[#E3C474] rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg">
+                    <i class="bi bi-award-fill"></i>
                 </div>
-                <h3 class="font-brand text-2xl font-bold mb-4 text-[#4A3728]">{{ $item[1] }}</h3>
-                <p class="text-gray-500 leading-relaxed font-light text-sm">
-                    {{ $item[2] }}
-                </p>
+                <h4 class="text-lg font-black text-[#4A3728]">Bahan Premium</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">Kami hanya menggunakan bumbu pilihan dan bahan segar setiap harinya untuk menjaga kualitas rasa.</p>
             </div>
-            @endforeach
+
+            <!-- Card Keunggulan 2 -->
+            <div class="bg-[#FFFBF5] p-8 rounded-[2.5rem] border border-[#E3C474]/20 text-center space-y-4">
+                <div class="w-16 h-16 bg-[#E3C474] text-white rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h4 class="text-lg font-black text-[#4A3728]">Resep Turun Temurun</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">Citarasa autentik nusantara yang dijaga keasliannya dari resep rahasia keluarga Mami Ersa.</p>
+            </div>
+
+            <!-- Card Keunggulan 3 -->
+            <div class="bg-[#FFFBF5] p-8 rounded-[2.5rem] border border-[#E3C474]/20 text-center space-y-4">
+                <div class="w-16 h-16 bg-[#4A3728] text-[#E3C474] rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h4 class="text-lg font-black text-[#4A3728]">100% Halal & Higienis</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">Proses memasak yang bersih dan terjamin kehalalannya untuk kenyamanan konsumsi keluarga Anda.</p>
+            </div>
         </div>
     </div>
-</section>
 
-<!-- MENU SECTION -->
-<section id="menu" class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div class="max-w-xl">
-                <h4 class="text-[#E3C474] font-bold uppercase tracking-[0.3em] text-xs mb-4">Our Signature</h4>
-                <h2 class="font-brand text-5xl font-bold text-[#4A3728]">Menu Unggulan <span class="italic font-light">Hari Ini</span></h2>
-            </div>
-            <div class="flex gap-2">
-                <span class="px-4 py-2 bg-[#4A3728] text-white rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer">All Menu</span>
-                <span class="px-4 py-2 bg-white text-gray-400 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer hover:text-[#4A3728]">Oleh-Oleh</span>
-            </div>
+    <!-- 2. SEPARATOR (Garis Hiasan) -->
+    <div class="flex items-center gap-4 justify-center">
+        <div class="h-[1px] w-20 bg-gray-200"></div>
+        <i class="bi bi-egg-fried text-[#E3C474] text-xl"></i>
+        <div class="h-[1px] w-20 bg-gray-200"></div>
+    </div>
+
+    <!-- 3. SUB-SECTION: DAFTAR MENU (Dynamic Cards) -->
+    <div class="space-y-12">
+        <div class="text-center">
+            <h3 class="text-xs font-black text-[#B98B58] uppercase tracking-[0.3em] mb-3">Menu Spesial</h3>
+            <h2 class="text-3xl md:text-4xl font-black text-[#4A3728]">Pilih Menu Favorit Anda</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            @php
-                $menus = [
-                    ['Bakwan Jagung','bakwan.jpg', 'Garing & Manis'],
-                    ['Ikan Balado','oleh-oleh.webp', 'Pedas Nagih'],
-                    ['Ketupat Sayur','ketupat.jpeg', 'Gurih Santan']
-                ];
-            @endphp
-
-            @foreach($menus as $menu)
-            <div class="group bg-white rounded-[2.5rem] p-4 shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-50">
-                <div class="relative h-72 overflow-hidden rounded-[2rem] mb-6">
-                    <img src="{{ asset('images/'.$menu[1]) }}" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute top-4 right-4 glass-card px-4 py-2 rounded-full shadow-sm text-[10px] font-black uppercase tracking-wider text-[#B98B58]">
-                        Best Seller
-                    </div>
-                </div>
-                
-                <div class="px-4 pb-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <p class="text-[#E3C474] text-[10px] font-bold uppercase tracking-widest">{{ $menu[2] }}</p>
-                            <h3 class="text-2xl font-bold text-[#4A3728]">{{ $menu[0] }}</h3>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xs text-gray-400 line-through">Rp 30k</p>
-                            <p class="text-xl font-black text-[#D95F5F]">Rp 25k</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            @foreach ($menus as $menu)
+                <div class="group bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 flex flex-col h-full">
+                    
+                    <!-- Image Area -->
+                    <div class="relative overflow-hidden h-64">
+                        @php $imgUrl = $menu->images->isNotEmpty() ? $menu->images->first()->url : asset('images/bakwan.jpg'); @endphp
+                        <img src="{{ $imgUrl }}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 px-4 py-2 bg-white/90 backdrop-blur-md rounded-2xl shadow-lg">
+                            <span class="text-[#4A3728] font-black text-sm">Rp {{ number_format($menu->harga, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
-                    <div class="flex gap-3 pt-6 border-t border-gray-50 mt-4">
-                        <a href="#" class="flex-1 text-center py-3.5 text-xs font-bold text-gray-400 hover:text-[#4A3728] transition-colors tracking-widest uppercase">Detail</a>
-                        <a href="#" class="flex-[2] bg-[#E3C474] text-white text-center py-3.5 rounded-xl font-bold text-xs shadow-lg shadow-[#E3C474]/30 hover:bg-[#4A3728] transition-all tracking-widest uppercase">Pesan Sekarang</a>
+                    <!-- Content Area -->
+                    <div class="p-8 flex flex-col flex-grow text-center">
+                        <h4 class="text-xl font-black text-[#4A3728] mb-2 group-hover:text-[#E3C474] transition-colors">
+                            {{ $menu->nama }}
+                        </h4>
+                        <p class="text-gray-400 text-sm font-medium mb-6 line-clamp-2">
+                            Menu spesial pilihan Mami Ersa yang dibuat fresh setiap harinya dengan bumbu autentik.
+                        </p>
+
+                        <!-- Actions -->
+                        <div class="mt-auto space-y-3">
+                            <a href="{{ route('publik.menu.show', $menu->id) }}"
+                                class="block w-full py-3 border-2 border-gray-100 rounded-2xl text-xs font-black uppercase tracking-widest text-gray-400 hover:bg-gray-50 hover:text-[#4A3728] transition-all">
+                                Lihat Detail Menu
+                            </a>
+                            
+                            <a href="https://wa.me/6283181441459?text={{ urlencode('Halo Admin Dapur Mami Ersa 👋' . "\n\n" . 'Saya ingin memesan:' . "\n" . '🍽 Menu : ' . $menu->nama . "\n" . '💰 Harga : Rp ' . number_format($menu->harga, 0, ',', '.') . "\n\n" . 'Terima kasih 🙏') }}"
+                                target="_blank" 
+                                class="flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] text-white rounded-2xl font-black text-xs uppercase tracking-[0.1em] shadow-lg shadow-green-200 hover:bg-green-600 transition-all transform hover:-translate-y-1">
+                                <i class="bi bi-whatsapp text-lg"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
-</section>
 
+</section>      
 <!-- TENTANG SECTION -->
 <section class="py-24 bg-[#4A3728] relative overflow-hidden rounded-t-[100px]">
     <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
