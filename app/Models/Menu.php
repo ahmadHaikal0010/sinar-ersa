@@ -32,4 +32,9 @@ class Menu extends Model
     {
         return 'Rp ' . number_format(($this->harga ?? 0) * 1000, 0, ',', '.');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

@@ -13,7 +13,10 @@ class DashboardController extends Controller
     {
         $menus = Menu::latest()->paginate(5);
         $transactionCount = Transaction::count();
-        $totalPendapatanBulanIni = Transaction::whereMonth('created_at', now()->month)->sum('jumlah');
+        $transactions = Transaction::whereMonth('created_at', now()->month)->get();
+        $totalPendapatanBulanIni = $transactions->sum(function ($transaction) {
+            return $transaction->jumlah * $transaction->menu->harga;
+        });
 
         return view('admin.dashboard', compact('menus', 'transactionCount', 'totalPendapatanBulanIni'));
     }
