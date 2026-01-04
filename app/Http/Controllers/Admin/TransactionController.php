@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Transaction\StoreTransactionRequest;
 use App\Http\Requests\Admin\Transaction\UpdateTransactionRequest;
 use App\Models\Transaction;
+use App\Models\Menu;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\Gate;
 
@@ -33,7 +34,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('admin.transaction.create');
+        $menus = Menu::pluck('nama', 'id');
+        return view('admin.transaction.create', compact('menus'));
     }
 
     /**
@@ -59,7 +61,8 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        return view('admin.transaction.edit', compact('transaction'));
+        $menus = Menu::pluck('nama', 'id');
+        return view('admin.transaction.edit', compact('transaction', 'menus'));
     }
 
     /**

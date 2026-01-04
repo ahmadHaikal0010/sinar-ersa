@@ -22,6 +22,7 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'menu_id' => ['required', 'exists:menus,id'],
             'jumlah' => ['required', 'string', 'max:255'],
             'deskripsi' => ['required', 'string'],
             'metode_transaksi' => ['required', 'in:tunai,transfer'],

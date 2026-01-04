@@ -13,6 +13,21 @@
     @enderror
 </div>
 
+{{-- Menu association --}}
+<div class="mb-4">
+    <label class="block font-medium text-gray-700">Menu</label>
+    <select name="menu_id" class="w-full mt-1 p-2 rounded-md border border-gray-300">
+        <option disabled {{ old('menu_id', $transaction->menu_id ?? '') == '' ? 'selected' : '' }}>Pilih Menu</option>
+        @foreach ($menus as $id => $name)
+            <option value="{{ $id }}"
+                {{ old('menu_id', $transaction->menu_id ?? '') == $id ? 'selected' : '' }}>{{ $name }}</option>
+        @endforeach
+    </select>
+    @error('menu_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
 {{-- Deskripsi --}}
 <div class="mb-4">
     <label class="block font-medium text-gray-700">Deskripsi</label>

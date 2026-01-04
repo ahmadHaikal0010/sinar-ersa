@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('menu_id')->constrained(
+                table: 'menus',
+                indexName: 'fk_transactions_menu_id',
+            )->onDelete('cascade')->onUpdate('cascade');
             $table->string('jumlah');
             $table->string('deskripsi');
             $table->enum('metode_transaksi', ['tunai', 'transfer']);
