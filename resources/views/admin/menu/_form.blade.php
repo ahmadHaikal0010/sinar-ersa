@@ -3,7 +3,7 @@
 @endphp
 
 <div class="space-y-8">
-    
+
     <!-- GRID: Nama & Kategori -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {{-- Nama Menu --}}
@@ -25,11 +25,13 @@
                 <i class="bi bi-tag me-2 text-[#E3C474]"></i> Kategori
             </label>
             <div class="relative">
-                <select name="kategori" 
+                <select name="kategori"
                     class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none appearance-none transition-all @error('kategori') border-red-500 @enderror">
-                    <option value="" disabled {{ old('kategori', $menu->kategori ?? '') == '' ? 'selected' : '' }}>Pilih Kategori</option>
+                    <option value="" disabled
+                        {{ old('kategori', $menu->kategori ?? '') == '' ? 'selected' : '' }}>Pilih Kategori</option>
                     @foreach ($kategori as $val => $label)
-                        <option value="{{ $val }}" {{ old('kategori', $menu->kategori ?? '') == $val ? 'selected' : '' }}>
+                        <option value="{{ $val }}"
+                            {{ old('kategori', $menu->kategori ?? '') == $val ? 'selected' : '' }}>
                             {{ $label }}
                         </option>
                     @endforeach
@@ -66,7 +68,7 @@
             <i class="bi bi-card-text me-2 text-[#E3C474]"></i> Deskripsi Produk
         </label>
         <textarea name="deskripsi"
-            class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none transition-all @error('deskripsi') border-red-500 @enderror" 
+            class="w-full bg-gray-50 border border-gray-100 p-4 rounded-2xl focus:ring-2 focus:ring-[#E3C474] outline-none transition-all @error('deskripsi') border-red-500 @enderror"
             rows="4" placeholder="Ceritakan kelezatan menu ini...">{{ old('deskripsi', $menu->deskripsi ?? '') }}</textarea>
         @error('deskripsi')
             <p class="text-red-500 text-xs font-bold italic mt-1">{{ $message }}</p>
@@ -74,13 +76,33 @@
     </div>
 
     <!-- SEKSI GAMBAR (Optional/Dianjurkan) -->
-    <div class="p-6 bg-[#FFFBF5] rounded-[2rem] border border-[#E3C474]/20 space-y-4">
+    {{-- <div class="p-6 bg-[#FFFBF5] rounded-[2rem] border border-[#E3C474]/20 space-y-4">
         <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
             <i class="bi bi-image me-2 text-[#E3C474]"></i> Gambar Utama Menu
         </label>
+<<<<<<< HEAD
         
        
     </div>
+=======
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{-- Upload File --}}
+    {{-- <div class="space-y-2">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Upload File</p>
+                <input type="file" name="image"
+                    class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#E3C474] file:text-white hover:file:bg-[#4A3728] transition-all" />
+            </div> --}}
+    {{-- URL Manual --}}
+    {{-- <div class="space-y-2">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Atau Import URL</p>
+                <input type="text" name="url_manual"
+                    class="w-full bg-white border border-gray-100 p-2 text-sm rounded-xl outline-none focus:ring-1 focus:ring-[#E3C474]"
+                    placeholder="https://image-link.com/img.jpg">
+            </div>
+        </div>
+    </div> --}}
+>>>>>>> 9bdead04477d7a0d0b7ec64c26cfaee045e32c18
 
     <!-- Tombol Aksi -->
     <div class="flex flex-col sm:flex-row justify-end gap-4 mt-10 pt-6 border-t border-gray-100">
@@ -89,7 +111,7 @@
             <i class="bi bi-arrow-left me-2"></i> Kembali
         </a>
 
-        <button type="submit" 
+        <button type="submit"
             class="px-10 py-4 bg-[#4A3728] text-white rounded-2xl font-bold text-sm shadow-xl shadow-gray-200 hover:bg-[#E3C474] transform hover:-translate-y-1 transition-all duration-300">
             <i class="bi bi-check-circle me-2"></i> {{ isset($menu) ? 'Update Menu' : 'Simpan Menu' }}
         </button>
