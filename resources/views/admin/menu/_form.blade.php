@@ -80,6 +80,11 @@
         <label class="block text-sm font-bold text-[#4A3728] uppercase tracking-wider">
             <i class="bi bi-image me-2 text-[#E3C474]"></i> Gambar Utama Menu
         </label>
+<<<<<<< HEAD
+        
+       
+    </div>
+=======
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {{-- Upload File --}}
@@ -97,6 +102,7 @@
             </div>
         </div>
     </div> --}}
+>>>>>>> 9bdead04477d7a0d0b7ec64c26cfaee045e32c18
 
     <!-- Tombol Aksi -->
     <div class="flex flex-col sm:flex-row justify-end gap-4 mt-10 pt-6 border-t border-gray-100">
